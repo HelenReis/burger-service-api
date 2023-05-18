@@ -21,9 +21,12 @@ namespace CookingService.Application
         {
             _channel.QueueDeclare(_appSettings.BreadQueue, false, false, false);
             _channel.QueueDeclare(_appSettings.CheeseQueue, false, false, false);
+            _channel.QueueDeclare(_appSettings.CheeseClient, false, false, false);
             _channel.ExchangeDeclare(_appSettings.ExchangeCooking, _appSettings.TypeExchangeCooking, true, false);
             _channel.QueueBind(_appSettings.BreadQueue, _appSettings.ExchangeCooking, string.Empty);
             _channel.QueueBind(_appSettings.CheeseQueue, _appSettings.ExchangeCooking, string.Empty);
+            _channel.ExchangeDeclare(_appSettings.ExchangeClient, _appSettings.TypeExchangeCooking, true, false);
+            _channel.QueueBind(_appSettings.CheeseClient, _appSettings.ExchangeClient, string.Empty);
         }
 
         public IModel? GetChannel() {
