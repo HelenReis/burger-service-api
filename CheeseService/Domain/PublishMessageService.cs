@@ -19,7 +19,7 @@ namespace CheeseService.Domain
             var channel = _setup.GetChannel();
             var consumer = new EventingBasicConsumer(channel);
 
-            channel.BasicPublish(_appSettings.ExchangeClient, string.Empty);
+            channel.BasicPublish(_appSettings.ExchangeClient, "cheese");
         }
     }
 }
