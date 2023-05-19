@@ -15,6 +15,15 @@ function build() {
 
 build();
 
+function hide_ingredients() {
+	$("#cheese").hide();
+	$("#burger").hide();
+	$("#bacon").hide();
+	$("#pickle").hide();
+	$("#lettuce").hide();
+	$("#tomato").hide();
+}
+
 function explode_burger() {
 	$.each(list, function(){
 		var self = this;

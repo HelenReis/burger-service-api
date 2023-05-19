@@ -1,4 +1,3 @@
-const port = 3000;
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -6,6 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const amqp = require('amqplib');
+const rabbitmqConfig = require('./config/rabbit');
 
 io.on('connection', (socket) => {
   socket.on('chat message', msg => {
@@ -27,24 +27,17 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + './public/index.html');
 });
 
-server.listen(port, () => {
-  console.log(`App is running on http://localhost:${port}`);
+server.listen(rabbitmqConfig.port, () => {
+  console.log(`App is running on http://localhost:${rabbitmqConfig.port}`);
 });
 
 const connect = async () => {
   try {
-    const connection = await amqp.connect('amqp://guest:guest@localhost:5672');
+    const connection = await amqp.connect(rabbitmqConfig.connection_string);
     const channel = await connection.createChannel();
-    const queue = 'cheese_client';
     
-    channel.consume(queue, (message) => {
-      io.emit('shrink', 'oi');
-      if (message !== null) {
-        console.log('Received message:', message.content.toString());
-        
-        // Acknowledge the message
-        channel.ack(message);
-      }
+    channel.consume(rabbitmqConfig.cheese_queue, (message) => {
+      io.emit('cheese');
     });
   } catch (error) {
     console.error('Error:', error);

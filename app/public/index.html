@@ -1,10 +1,8 @@
 <head><link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<h1>Hamburger Menu <span>(using Event Driven architecture)</span></h1>
-	<h2>Using its asynchronous nature, every time an ingredient is triggered by an event and is fully cooked, it piles up in our hamburger. 
-		<br>Which ingredient will come first? And for the last?
-	</h2>
+	<h1>Preparing your hamburger <span>(using Event Driven architecture)</span></h1>
+	<h2>Which ingredient will get ready first? And for the last?</h2>
 	<div class="wrapper">
 		<ul class="hamburger">
 			<li class="item" id="bun_top">
@@ -167,18 +165,10 @@
 <script>
   var socket = io();
 
-  socket.on('shrink', (newTitle) => {
-		  	console.log("EXPLODIU");
+  hide_ingredients()
+  explode_burger();
 
-		$.each(list, function(){
-			var self = this;
-			var id = $(this).attr('id');	
-			un_hover_burger();	
-			setTimeout(function(){
-				console.log($(self));
-				$(self).addClass(id + "-explode");	
-		}, 300);
-	});
-		});
+  socket.on('cheese', () => $("#cheese").show());
+  socket.on('burger', () => $("#burger").show());
 </script>	
 </body>
