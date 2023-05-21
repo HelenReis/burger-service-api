@@ -4,7 +4,6 @@ on:
   workflow_run:
     workflows: ["Cooking CI"]
     types: [completed]
-    branches: [ "master/cooking-service" ]
     
 env:
   REGISTRY: docker.io
