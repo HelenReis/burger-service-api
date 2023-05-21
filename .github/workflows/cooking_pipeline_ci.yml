@@ -2,8 +2,11 @@ name: Cooking CI
 
 on:
   pull_request:
-    branches: [ "master/cooking-service" ]
-
+    types:
+      - opened
+    branches:
+      - 'master/cooking-service'
+      
 jobs:
 
   build:
