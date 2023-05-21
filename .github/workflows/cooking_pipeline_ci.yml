@@ -1,4 +1,4 @@
-name: Cooking_CI
+name: Cooking CI
 
 on:
   pull_request:
