@@ -2,7 +2,7 @@ name: Cooking CD
 #test
 on:
   workflow_run:
-    workflows: ["Cooking_CI"]
+    workflows: ["Cooking CI"]
     types: [completed]
     
 env:
