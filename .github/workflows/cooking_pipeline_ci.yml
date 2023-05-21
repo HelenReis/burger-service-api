@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Cooking CI
 
 on:
   push:
