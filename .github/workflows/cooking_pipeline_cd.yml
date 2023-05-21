@@ -43,21 +43,21 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
+          
+      - name: Set timestamp
+        id: timestamp
+        run: echo "::set-timestamp name=timestamp::$(date +'%Y%m%d%H%M%S')"
+        
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: CookingService
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ github.run_number }}-${{ github.sha }}-${{ formatTimestamp(now(), 'yyyyMMddHHmmss') }}
+          tags: ${{ github.run_number }}-${{ steps.timestamp.outputs.timestamp }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          
-      - name: Print tags value
-        run: |
-          echo "Tags value: ${{ steps.meta.outputs.tags }}"
 
       - name: Sign the published Docker image
         if: ${{ github.event_name != 'pull_request' }}
