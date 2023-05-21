@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CookingService.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CookingController : ControllerBase
 {
     private readonly ISetup _setup;

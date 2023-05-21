@@ -2,9 +2,9 @@ version: '3.4'
 
 services:
   cooking_service:
-    image: cooking_service:9.2
+    image: cooking_service:10.0
     ports:
-      - "70:80"
+      - "2000:80"
     depends_on:
       "rabbitmq":
         condition: service_healthy
@@ -13,10 +13,10 @@ services:
     networks:
         - my-network
 
-  bread_service:
-    image: bread_service:9.1
+  cheese_service:
+    image: cheese_service:10.0
     ports:
-      - "80:80"
+      - "4000:80"
     depends_on:
       "cooking_service":
         condition: service_started
@@ -25,15 +25,16 @@ services:
     networks:
         - my-network
 
-  cheese_service:
-    image: cheese_service:9.1
+  hamburguer_client:
+    image: hamburger-client:latest
     ports:
-      - "50:80"
+      - "49160:8080"
     depends_on:
-      "cooking_service":
+      "cheese_service":
         condition: service_started
     environment:
       - RABBITMQ_HOST=rabbitmq
+      - PORT=8080
     networks:
         - my-network
 

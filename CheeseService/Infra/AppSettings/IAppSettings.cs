@@ -4,5 +4,6 @@ namespace CheeseService.Infra
     {
         string CheeseQueue { get; }
         string RabbitMqHost { get; }
+        string ExchangeClient { get; }
     }
 }

@@ -9,7 +9,8 @@ namespace CheeseService.Infra
             _configVariables = config.GetSection("Messages");
             _config = config;
         }
-        public string CheeseQueue => _configVariables.GetValue<string>("BreadQueue");
+        public string CheeseQueue => _configVariables.GetValue<string>("CheeseQueue");
         public string RabbitMqHost => _config.GetValue<string>("RABBITMQ_HOST");
+        public string ExchangeClient => _configVariables.GetValue<string>("ExchangeClient");
     }
 }

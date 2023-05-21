@@ -28,11 +28,14 @@ namespace BreadService
             builder.Services.AddScoped<IAppSettings, AppSettings>();
             builder.Services.AddScoped<ICheeseAppSubscriber, CheeseAppSubscriber>();
             builder.Services.AddScoped<ICheeseSubscriber, CheeseSubscriber>();
+            builder.Services.AddScoped<IPublishMessageService, PublishMessageService>();
+            builder.Services.AddScoped<ISetup, Setup>();
         }
 
         public static void SubscribeToMessages(IServiceProvider serviceProvider) {
             var appSettings = GetServiceScope<IAppSettings>(serviceProvider);
-            var subscriber = new CheeseAppSubscriber(appSettings);
+            var publisher = GetServiceScope<IPublishMessageService>(serviceProvider);
+            var subscriber = new CheeseAppSubscriber(appSettings, publisher);
             subscriber.SubscribeToMessages();
         }
 
