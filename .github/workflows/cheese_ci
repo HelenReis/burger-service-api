@@ -1,0 +1,17 @@
+name: Cheese CI
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master/cheese_service'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build CheeseService --file CheeseService/Dockerfile --tag cheese_service:$(date +%s)
