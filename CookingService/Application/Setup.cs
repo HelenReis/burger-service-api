@@ -24,6 +24,10 @@ namespace CookingService.Application
             _channel.ExchangeDeclare(_appSettings.ExchangeCooking, _appSettings.TypeExchangeCooking, true, false);
             _channel.QueueBind(_appSettings.BreadQueue, _appSettings.ExchangeCooking, string.Empty);
             _channel.QueueBind(_appSettings.CheeseQueue, _appSettings.ExchangeCooking, string.Empty);
+
+            _channel.QueueDeclare(_appSettings.CheeseClient, false, false, false);
+            _channel.ExchangeDeclare(_appSettings.ExchangeClient, "direct", true, false);
+            _channel.QueueBind(_appSettings.CheeseClient, _appSettings.ExchangeClient, "cheese");
         }
 
         public IModel? GetChannel() {
