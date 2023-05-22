@@ -8,15 +8,15 @@ from diagrams.programming.language import Nodejs;
 #Mediator/Orchestration Topology -> when there's a central component knowing all, like a central command to send all events
 with Diagram("Event Driven - Mediator/Orchestration Topology", show=False, filename="big_picture_mediator", direction="TB"):
     with Cluster("Kubernetes"):   
-        with Cluster("publisher_service"):
+        with Cluster("cooking_image"):
             cooking_service = AppServices("cooking_service")
         with Cluster("channel"):
             queue = RabbitMQ("cooking_queue")
-        with Cluster("consumer_publisher_service"):
+        with Cluster("pickle_image"):
             pickle = AppServices("pickle_service")
-        with Cluster("consumer_publisher_service"):
+        with Cluster("cheese_image"):
             cheese = AppServices("cheese_service")
-        with Cluster("consumer_publisher_service"):
+        with Cluster("steak_image"):
             steak = AppServices("steak_service")
         with Cluster("app_queue", direction="LR"):
             cheese_queue = RabbitMQ("cheese_queue")
