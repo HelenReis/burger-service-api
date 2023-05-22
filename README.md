@@ -5,7 +5,7 @@
 Demonstrating in a fun way how to use event driven architecture.
 
 ## :eyes: What's next
-- Implementing the steak service
+- Implementing the steak and pickle service
 - Implementing the client page to interact with elements
 - Unit tests
 
