@@ -1,19 +1,17 @@
-name: Cooking CI
+name: App CI
 
 on:
   pull_request:
     types:
       - opened
     branches:
-      - 'master/cooking-service'
+      - 'master/hamburger_client'
       
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build CookingService --file CookingService/Dockerfile --tag cooking_service:$(date +%s)
+      run: docker build app --file app/Dockerfile --tag app:$(date +%s)

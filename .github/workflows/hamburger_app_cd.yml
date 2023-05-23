@@ -1,13 +1,13 @@
-name: Cooking CD
+name: App CD
 
 on:
   workflow_run:
-    workflows: ["Cooking CI"]
+    workflows: ["App CI"]
     types: [completed]
     
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: helenixx/cooking_service
+  IMAGE_NAME: helenixx/hamburger_app
 
 jobs:
   build:
@@ -52,7 +52,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: CookingService
+          context: app
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
