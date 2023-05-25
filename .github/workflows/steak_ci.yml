@@ -1,0 +1,17 @@
+name: Steak CI
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master/steak-service'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build SteakService --file SteakService/Dockerfile --tag steak_service:$(date +%s)
