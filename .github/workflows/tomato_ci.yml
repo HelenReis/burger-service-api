@@ -1,0 +1,17 @@
+name: Tomato CI
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master/tomato-service'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build TomatoService --file TomatoService/Dockerfile --tag tomato_service:$(date +%s)
