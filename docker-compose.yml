@@ -2,12 +2,72 @@ version: '3.4'
 
 services:
   cooking_service:
-    image: cooking_service:10.0
+    image: cooking_service:10.2
     ports:
       - "2000:80"
     depends_on:
       "rabbitmq":
         condition: service_healthy
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+        - my-network
+
+  steak_service:
+    image: steak_service:latest
+    ports:
+      - "3000:80"
+    depends_on:
+      "cooking_service":
+        condition: service_started
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+        - my-network
+
+  bacon_service:
+    image: bacon_service:latest
+    ports:
+      - "3200:80"
+    depends_on:
+      "cooking_service":
+        condition: service_started
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+        - my-network
+
+  tomato_service:
+    image: tomato_service:latest
+    ports:
+      - "3400:80"
+    depends_on:
+      "cooking_service":
+        condition: service_started
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+        - my-network
+
+  lettuce_service:
+    image: lettuce_service:latest
+    ports:
+      - "3600:80"
+    depends_on:
+      "cooking_service":
+        condition: service_started
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+    networks:
+        - my-network
+
+  pickle_service:
+    image: pickle_service:latest
+    ports:
+      - "3800:80"
+    depends_on:
+      "cooking_service":
+        condition: service_started
     environment:
       - RABBITMQ_HOST=rabbitmq
     networks:
@@ -26,7 +86,7 @@ services:
         - my-network
 
   hamburguer_client:
-    image: hamburger-client:latest
+    image: hamburger_client:3.2
     ports:
       - "49160:8080"
     depends_on:
