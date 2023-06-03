@@ -1,0 +1,17 @@
+name: App CI
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master/app'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build app --file app/Dockerfile --tag app_service:$(date +%s)
