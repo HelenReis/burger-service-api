@@ -14,4 +14,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build CheeseService --file CheeseService/Dockerfile --tag cheese_service
+      run: docker build CheeseService --file CheeseService/Dockerfile --tag cheese_service:$(date +%s)
