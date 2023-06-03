@@ -1,0 +1,17 @@
+name: Lettuce CI
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master/lettuce-service'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build LettuceService --file LettuceService/Dockerfile --tag lettuce_service:$(date +%s)
