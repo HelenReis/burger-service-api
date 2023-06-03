@@ -1,9 +1,8 @@
-using BreadService.Application.Bread;
-using BreadService.Infra;
-using BreadService.Infra.Data;
-using Microsoft.EntityFrameworkCore;
+using TomatoService.Application;
+using TomatoService.Domain;
+using TomatoService.Infra;
 
-namespace BreadService
+namespace TomatoService
 {
     public static class Startup
     {
@@ -11,43 +10,26 @@ namespace BreadService
             var builder = WebApplication.CreateBuilder(args);
             ConfigureServices(builder);
             var app = builder.Build();
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
             app.MapControllers();
             var serviceProvider = ConfigureScope(app);
-            EnsureDatabaseIsCreated(serviceProvider);
             SubscribeToMessages(serviceProvider);
             return app;
         }
 
         public static void ConfigureServices(WebApplicationBuilder builder) {
-            builder.Services.AddDbContext<BreadDataContext>(options => 
-                options.UseSqlite(
-                builder.Configuration
-                .GetSection("DbConnection")
-                .GetValue<string>("Database")
-                )
-            );
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IBreadDataContext, BreadDataContext>();
             builder.Services.AddScoped<IAppSettings, AppSettings>();
-            builder.Services.AddScoped<IBreadSubscriber, BreadSubscriber>();
-        }
-
-        public static void EnsureDatabaseIsCreated(IServiceProvider serviceProvider) {
-            var dataContext = GetServiceScope<BreadDataContext>(serviceProvider);
-            dataContext.Database.EnsureCreated();
+            builder.Services.AddScoped<ITomatoAppSubscriber, TomatoAppSubscriber>();
+            builder.Services.AddScoped<ITomatoSubscriber, TomatoSubscriber>();
+            builder.Services.AddScoped<IPublishMessageService, PublishMessageService>();
+            builder.Services.AddScoped<ISetup, Setup>();
         }
 
         public static void SubscribeToMessages(IServiceProvider serviceProvider) {
             var appSettings = GetServiceScope<IAppSettings>(serviceProvider);
-            var dataContext = GetServiceScope<BreadDataContext>(serviceProvider);
-            var subscriber = new BreadAppSubscriber(appSettings);
+            var publisher = GetServiceScope<IPublishMessageService>(serviceProvider);
+            var subscriber = new TomatoAppSubscriber(appSettings, publisher);
             subscriber.SubscribeToMessages();
         }
 

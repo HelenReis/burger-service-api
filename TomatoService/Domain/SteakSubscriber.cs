@@ -1,18 +1,19 @@
-using System.Text;
-using BreadService.Domain;
-using BreadService.Infra;
-using BreadService.Infra.Data;
-using Newtonsoft.Json.Linq;
+using TomatoService.Infra;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace BreadService.Application.Bread
+namespace TomatoService.Domain
 {
-    public class BreadSubscriber : IBreadSubscriber
+    public class TomatoSubscriber : ITomatoSubscriber
     {
         private readonly IAppSettings _config;
-        public BreadSubscriber(IAppSettings config)
-        {
+        private readonly IPublishMessageService _publishServer;
+
+        public TomatoSubscriber(
+            IAppSettings config, 
+            IPublishMessageService publishServer)
+        { 
+            _publishServer = publishServer;
             _config = config;
         }
         public void ListenToMessage()
@@ -25,10 +26,11 @@ namespace BreadService.Application.Bread
 
             consumer.Received += async(model, ea) =>
             {                
-                Console.WriteLine("received message on bread service.");
+                Console.WriteLine("received message on Tomato service.");
+                _publishServer.PublishMessageToClient();
             };
 
-            channel.BasicConsume(queue: _config.BreadQueue,
+            channel.BasicConsume(queue: _config.TomatoQueue,
                                      autoAck: true,
                                      consumer: consumer);
         }

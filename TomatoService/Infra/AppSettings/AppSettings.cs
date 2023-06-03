@@ -1,4 +1,4 @@
-namespace BreadService.Infra
+namespace TomatoService.Infra
 {
     public class AppSettings : IAppSettings
     {
@@ -9,7 +9,8 @@ namespace BreadService.Infra
             _configVariables = config.GetSection("Messages");
             _config = config;
         }
-        public string BreadQueue => _configVariables.GetValue<string>("BreadQueue");
+        public string TomatoQueue => _configVariables.GetValue<string>("TomatoQueue");
         public string RabbitMqHost => _config.GetValue<string>("RABBITMQ_HOST");
+        public string ExchangeClient => _configVariables.GetValue<string>("ExchangeClient");
     }
 }
