@@ -2,7 +2,7 @@ using CheeseService.Application;
 using CheeseService.Domain;
 using CheeseService.Infra;
 
-namespace BreadService
+namespace CheeseService
 {
     public static class Startup
     {
