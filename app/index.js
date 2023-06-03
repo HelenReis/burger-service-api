@@ -36,9 +36,12 @@ const connect = async () => {
     const connection = await amqp.connect(rabbitmqConfig.connection_string);
     const channel = await connection.createChannel();
     
-    channel.consume(rabbitmqConfig.cheese_queue, (message) => {
-      io.emit('cheese');
-    });
+    channel.consume(rabbitmqConfig.cheese_queue, (message) => io.emit('cheese'));
+    channel.consume(rabbitmqConfig.steak_queue, (message) => io.emit('steak'));
+    channel.consume(rabbitmqConfig.bacon_queue, (message) => io.emit('bacon'));
+    channel.consume(rabbitmqConfig.pickle_queue, (message) => io.emit('pickle'));
+    channel.consume(rabbitmqConfig.tomato_queue, (message) => io.emit('tomato'));
+    channel.consume(rabbitmqConfig.lettuce_queue, (message) => io.emit('lettuce'));
   } catch (error) {
     console.error('Error:', error);
   }
