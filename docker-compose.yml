@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   cooking_service:
-    image: cooking_service:10.2
+    image: helenixx/cooking_service:main
     ports:
       - "2000:80"
     depends_on:
@@ -14,7 +14,7 @@ services:
         - my-network
 
   steak_service:
-    image: steak_service:latest
+    image: helenixx/steak_service:main
     ports:
       - "3000:80"
     depends_on:
@@ -26,7 +26,7 @@ services:
         - my-network
 
   bacon_service:
-    image: bacon_service:latest
+    image: helenixx/bacon_service:main
     ports:
       - "3200:80"
     depends_on:
@@ -38,7 +38,7 @@ services:
         - my-network
 
   tomato_service:
-    image: tomato_service:latest
+    image: helenixx/tomato_service:main
     ports:
       - "3400:80"
     depends_on:
@@ -50,7 +50,7 @@ services:
         - my-network
 
   lettuce_service:
-    image: lettuce_service:latest
+    image: helenixx/lettuce_service:main
     ports:
       - "3600:80"
     depends_on:
@@ -62,7 +62,7 @@ services:
         - my-network
 
   pickle_service:
-    image: pickle_service:latest
+    image: helenixx/pickle_service:main
     ports:
       - "3800:80"
     depends_on:
@@ -74,7 +74,7 @@ services:
         - my-network
 
   cheese_service:
-    image: cheese_service:10.0
+    image: helenixx/cheese_service:main
     ports:
       - "4000:80"
     depends_on:
@@ -86,7 +86,7 @@ services:
         - my-network
 
   hamburguer_client:
-    image: hamburger_client:3.2
+    image: helenixx/app_service:main
     ports:
       - "49160:8080"
     depends_on:
@@ -99,7 +99,7 @@ services:
         - my-network
 
   rabbitmq:
-    image: rabbitmq:3.0
+    image: helenixx/rabbitmq:latest
     ports:
       - "15672:15672"
       - "5672:5672"
