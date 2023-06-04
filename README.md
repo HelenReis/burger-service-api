@@ -6,6 +6,7 @@ Demonstrating in a fun way how to use event driven architecture.
 
 ## :eyes: Next improvements
 - Organizing pipelines using templates
+- Update controller-based APIs to minimal APIs in ASP.NET Core (using .NET 7.0)
 - Unit tests
 
 ## :triangular_ruler: Big Picture 
