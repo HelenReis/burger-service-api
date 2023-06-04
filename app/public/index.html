@@ -1,8 +1,11 @@
 <head><link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<h1>Preparing your hamburger <span>(using Event Driven architecture)</span></h1>
-	<h2>Which ingredient will get ready first? And for the last?</h2>
+	<h2>Which ingredients do you want to publish in your burger?</h2>
+
+	<button onclick="reset()" class="btn"><i class="fa fa-repeat"></i></button>
 	<div class="wrapper">
 		<ul class="hamburger">
 			<li class="item" id="bun_top">
@@ -165,10 +168,20 @@
 <script>
   var socket = io();
 
-  hide_ingredients()
+  hide_ingredients();
   explode_burger();
 
   socket.on('cheese', () => $("#cheese").show());
-  socket.on('burger', () => $("#burger").show());
+  socket.on('steak', () => $("#burger").show());
+  socket.on('bacon', () => $("#bacon").show());
+  socket.on('pickle', () => $("#pickle").show());
+  socket.on('tomato', () => $("#tomato").show());
+  socket.on('lettuce', () => $("#lettuce").show());
+  socket.on('close_burger', () => shrink_burger());
+  
+  function reset() {
+	hide_ingredients();
+	explode_burger();
+	}
 </script>	
 </body>
