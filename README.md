@@ -4,9 +4,8 @@
 
 Demonstrating in a fun way how to use event driven architecture.
 
-## :eyes: What's next
-- Implementing the steak and pickle service
-- Implementing the client page to interact with elements
+## :eyes: Next improvements
+- Organizing pipelines using templates
 - Unit tests
 
 ## :triangular_ruler: Big Picture 
