@@ -1,3 +1,5 @@
+using CookingService.Domain;
+
 public interface IPublishMessageService {
-    void PublishMessage();
+    void PublishMessage(Ingredients ingredients);
 }

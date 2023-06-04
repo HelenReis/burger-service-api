@@ -24,13 +24,13 @@ namespace CookingService.Application
             _channel.QueueDeclare(_appSettings.LettuceQueue, false, false, false);
             _channel.QueueDeclare(_appSettings.PickleQueue, false, false, false);
             _channel.QueueDeclare(_appSettings.TomatoQueue, false, false, false);
-            _channel.ExchangeDeclare(_appSettings.ExchangeCooking, _appSettings.TypeExchangeCooking, true, false);
-            _channel.QueueBind(_appSettings.BaconQueue, _appSettings.ExchangeCooking, string.Empty);
-            _channel.QueueBind(_appSettings.CheeseQueue, _appSettings.ExchangeCooking, string.Empty);
-            _channel.QueueBind(_appSettings.SteakQueue, _appSettings.ExchangeCooking, string.Empty);
-            _channel.QueueBind(_appSettings.LettuceQueue, _appSettings.ExchangeCooking, string.Empty);
-            _channel.QueueBind(_appSettings.PickleQueue, _appSettings.ExchangeCooking, string.Empty);
-            _channel.QueueBind(_appSettings.TomatoQueue, _appSettings.ExchangeCooking, string.Empty);
+            _channel.ExchangeDeclare(_appSettings.ExchangeCooking, "direct", true, false);
+            _channel.QueueBind(_appSettings.BaconQueue, _appSettings.ExchangeCooking, "bacon");
+            _channel.QueueBind(_appSettings.CheeseQueue, _appSettings.ExchangeCooking, "cheese");
+            _channel.QueueBind(_appSettings.SteakQueue, _appSettings.ExchangeCooking, "steak");
+            _channel.QueueBind(_appSettings.LettuceQueue, _appSettings.ExchangeCooking, "lettuce");
+            _channel.QueueBind(_appSettings.PickleQueue, _appSettings.ExchangeCooking, "pickle");
+            _channel.QueueBind(_appSettings.TomatoQueue, _appSettings.ExchangeCooking, "tomato");
 
             _channel.QueueDeclare(_appSettings.CheeseClient, false, false, false);
             _channel.QueueDeclare(_appSettings.SteakClient, false, false, false);
