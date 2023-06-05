@@ -1,4 +1,6 @@
+using CookingService.Domain;
 using CookingService.Infra;
+using CookingService.Shared;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -14,12 +16,22 @@ namespace CookingService.Application
             _setup = setup;
         }
 
-        public void PublishMessage()
+        public void PublishMessage(Ingredients ingredients)
         {
+            var ingredientsDictionary = ingredients.ConvertObjectToDictionary();
+
+            foreach (KeyValuePair<string, bool> kvp in ingredientsDictionary)
+                PublishIngredient(kvp.Key, kvp.Value);
+        }
+
+        public void PublishIngredient(string ingredientName, bool publishIngredient)
+        {
+            if (publishIngredient is false) 
+                return;
+
             var channel = _setup.GetChannel();
             var consumer = new EventingBasicConsumer(channel);
-
-            channel.BasicPublish(_appSettings.ExchangeCooking, string.Empty);
+            channel.BasicPublish(_appSettings.ExchangeCooking, ingredientName);
         }
     }
 }

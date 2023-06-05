@@ -1,4 +1,5 @@
 using CookingService.Application;
+using CookingService.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookingService.Controllers;
@@ -18,10 +19,10 @@ public class CookingController : ControllerBase
         _publishMessageService = publishMessageService;
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("Cook")]
-    public void PrepareCooking()
+    public void PrepareCooking(Ingredients ingredients)
     {
-        _publishMessageService.PublishMessage();
+        _publishMessageService.PublishMessage(ingredients);
     }
 }
