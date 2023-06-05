@@ -1,0 +1,17 @@
+name: Bacon CI
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master/bacon-service'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build BaconService --file BaconService/Dockerfile --tag bacon_service:$(date +%s)

@@ -1,13 +1,13 @@
-name: Cheese CD
+name: Tomato CD
 
 on:
   workflow_run:
-    workflows: ["Cheese CI"]
+    workflows: ["Tomato CI"]
     types: [completed]
     
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: helenixx/cheese_service
+  IMAGE_NAME: helenixx/tomato_service
 
 jobs:
   build:
@@ -50,20 +50,14 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: CheeseService
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
+          context: TomatoService
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          
-      - name: Debug variables
-        run: |
-          echo "steps.meta.outputs.tags: ${{ steps.meta.outputs.tags }}"
-          echo "steps.build-and-push.outputs.digest: ${{ steps.build-and-push.outputs.digest }}"
 
       - name: Sign the published Docker image
-        if: ${{ github.event_name != 'pull_request' }}
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: echo "${{ steps.meta.outputs.tags }}" | xargs -I {} cosign sign {}@${{ steps.build-and-push.outputs.digest }}
