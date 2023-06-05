@@ -33,12 +33,12 @@ li {
 
 .hamburger {
   margin: 0 auto;
-  height: 400px;
   width: 250px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  text-align: center; }
+  text-align: center;
+padding: 0; }
 
 .item {
   position: relative;
@@ -182,5 +182,8 @@ li {
   padding: 12px 16px; 
   font-size: 16px; 
   cursor: pointer; 
-  border-radius: 50%;
+}
+
+.center-button {
+  margin-top: 20px;
 }

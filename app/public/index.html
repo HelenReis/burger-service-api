@@ -5,7 +5,6 @@
 	<h1>Preparing your hamburger <span>(using Event Driven architecture)</span></h1>
 	<h2>Which ingredients do you want to publish in your burger?</h2>
 
-	<button onclick="reset()" class="btn"><i class="fa fa-repeat"></i></button>
 	<div class="wrapper">
 		<ul class="hamburger">
 			<li class="item" id="bun_top">
@@ -161,7 +160,11 @@
 			</li>
 			<li class="item shadow"></li>
 		</ul>
-	</div>
+		<div class="center-button">
+			<button onclick="reset()" class="btn">Cook again</button>
+		</div>
+
+</div>
 	<script src="artifacts/jquery-3.7.0.js"></script>
 	<script src="artifacts/socket.io.js"></script>
     <script src="template.js"></script>
