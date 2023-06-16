@@ -8,6 +8,7 @@ Demonstrating the event-driven architecture using a mediator topology and a burg
 
 - [You need to have Docker Engine and Docker Compose on your machine](https://docs.docker.com/compose/gettingstarted/) 
 - Download the *docker-compose.yml* file from the root of the project. Feel free to change the ports accordingly to your usage.
+- Run `docker network create -d bridge my-network` in your terminal to create a network for your docker environment.
 - Run `docker-compose up` in your *docker-compose.yml* file directory
 - Navigate to *localhost:49160* or equivalent port that was set to check the UI page
 - Navigate to *localhost:2000* or equivalent port that was set to check the API documentation on Swagger and do your first request
